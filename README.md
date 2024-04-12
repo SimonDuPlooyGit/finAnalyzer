@@ -1,5 +1,7 @@
 # Description for Lab Test
 
+Simon du Plooy - 2304874
+
 This code takes transaction data as a List of transactions and analyses income against expenses to categorize the financial health for the company. 
 
 The five calculations to be done are as follows:
