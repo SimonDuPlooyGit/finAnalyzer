@@ -55,6 +55,16 @@ class FinancialHealthAnalyzer:
             return "Warning"
         else:
             return "Critical" #Logic to output the correct message for financial health, checking the values in a range
+        
+    def change_a_transaction(self, index, newInput):
+        numTransacts = 0
+        for transaction in self.transactions:
+            numTransacts += 1
+
+        if (index-1) >= 0 and (index-1) <= (numTransacts - 1):
+            self.transactions[index-1] = self.transactions[index-1].from_line(newInput)
+        else:
+            print("Indext not in array")
 
 class TestFinancialHealthAnalyzer(unittest.TestCase):
     #Setup data allows for code to be tested without manually writing test transaction code for every test function. 
@@ -121,9 +131,35 @@ if __name__ == '__main__':
     analyzer = FinancialHealthAnalyzer(FinancialHealthAnalyzer.transactions) #Creating an instance of FinancialHealthAnalyzer called analyzer
 
     #Outputting the important values in a readable manner
-    print("Profit: " + str(analyzer.profit()))
-    print("Profit margin: " + str(analyzer.profit_margin()))
-    print("Average transaction amount: " + str(analyzer.average_transaction_amount()))
-    print("Financial health: " + str(analyzer.financial_health()))
+    analyzer.change_a_transaction(1, "2024-01-01,Income,1000") #Using the from line function to show that you can change a transaction after the fact
+    analyzer.change_a_transaction(4, "2024-01-04,Income,1500") #Changed it so that is matches the test cases
+
+    print("Profit: " + "R" + str(analyzer.profit()))
+    print("Profit margin: " + str(analyzer.profit_margin()) + "%")
+    print("Average transaction amount: " + "R" + str(analyzer.average_transaction_amount()))
+    print("Financial health: " + str(analyzer.financial_health()) + "\n")
+
+    #Original Case
+    analyzer.change_a_transaction(1, "2024-01-01,Income,50")
+    analyzer.change_a_transaction(4, "2024-01-04,Income,75")
+    print("Profit: " + "R" + str(analyzer.profit()))
+    print("Profit margin: " + str(analyzer.profit_margin()) + "%")
+    print("Average transaction amount: " + "R" + str(analyzer.average_transaction_amount()))
+    print("Financial health: " + str(analyzer.financial_health()) + "\n")
+
+    #A Critical Case
+    analyzer.change_a_transaction(2, "2024-01-02,Expense,3220")
+    print("Profit: " + "R" + str(analyzer.profit()))
+    print("Profit margin: " + str(analyzer.profit_margin()) + "%")
+    print("Average transaction amount: " + "R" + str(analyzer.average_transaction_amount()))
+    print("Financial health: " + str(analyzer.financial_health()) + "\n")
+
+    #A Warning Case
+    analyzer.change_a_transaction(2, "2024-01-02,Expense,3190")
+    print("Profit: " + "R" + str(analyzer.profit()))
+    print("Profit margin: " + str(analyzer.profit_margin()) + "%")
+    print("Average transaction amount: " + "R" + str(analyzer.average_transaction_amount()))
+    print("Financial health: " + str(analyzer.financial_health()) + "\n")
+
     unittest.main()
     
