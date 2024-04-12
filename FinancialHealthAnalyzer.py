@@ -74,7 +74,6 @@ class TestFinancialHealthAnalyzer(unittest.TestCase):
         lineTestTwo = "2024-01-02,Expense,500"
         #inputting a string as the argument for the from_line method to see if it can split it properly
         self.assertEqual(transactions_data[0].from_line(lineTestOne).date, "2024-01-01", "The date of the from_line method is wrong") #Using the unit test assertEqual statement to test the function answer
-
         self.assertEqual(transactions_data[0].from_line(lineTestOne).type, "Income", "The type of expense of from_line method is wrong")
         self.assertEqual(transactions_data[0].from_line(lineTestOne).amount, 1000, "The amount of the from_line method is wrong")
 
@@ -97,7 +96,7 @@ class TestFinancialHealthAnalyzer(unittest.TestCase):
 
     def test_profit_margin(self):
         analyzer = FinancialHealthAnalyzer(self.transactions)
-        self.assertEqual(analyzer.profit_margin(), 0.984)
+        self.assertEqual(analyzer.profit_margin(), 0.984, "The profit margin is wrong")
 
     def test_average_transaction_amount(self):
         analyzer = FinancialHealthAnalyzer(self.transactions)
